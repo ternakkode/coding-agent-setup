@@ -36,6 +36,15 @@ npx skills add /absolute/path/coding-agent-setup --skill cleanup -g --agent code
 
 Invoke it with `Use $cleanup to clean up this branch while preserving the agreed behavior.` It runs six stages in sequence, ending with leftover removal and verification. For findings without edits, ask for a review or dry run. Before starting, it checks the five companion skills and asks to install any that are missing. You can explicitly choose built-in fallback instructions instead. Leftover cleanup needs no separate installation.
 
+Cleanup uses `ponytail` in ultra mode (source listed above), plus these companion skills. Consult these links when installing a missing companion; use the installed skill by name during cleanup.
+
+| Companion skill | Installation reference |
+|---|---|
+| `ponytail-review` | [Source](https://github.com/DietrichGebert/ponytail/blob/main/skills/ponytail-review/SKILL.md) |
+| `codebase-design` | [Guide](https://www.aihero.dev/skills-codebase-design) |
+| `improve-codebase-architecture` | [Guide](https://www.aihero.dev/skills-improve-codebase-architecture) |
+| `codebase-simplifier` | [Listing](https://mcpmarket.com/tools/skills/codebase-simplifier) |
+
 ## MCP Tools
 
 | Tool | Purpose | When to use |
