@@ -7,8 +7,10 @@ The selected skills and MCP tools for this setup, with their purpose, usage, and
 | [Ponytail](https://github.com/dietrichgebert/ponytail) | Simplify implementation through reuse, standard tools, and only the code needed. | During developer planning, implementation, and review. Keep explanations clear under our communication guide. |
 | [Cleanup](skills/cleanup/SKILL.md) | Coordinate six sequential cleanup stages, each with its own scope, assessment, and plan. | When asked to clean up a selected branch, feature, or subsystem. Preserve agreed behavior, verify the result, and keep review-only requests read-only. |
 | [grill-with-docs](https://www.aihero.dev/skills-grill-with-docs) | Clarify vague requirements through rounds of focused questions and recorded decisions. | Invoke explicitly when the outcome, scope, or important decisions are unclear. Stay within the current decision and stop when the next iteration is clear enough to plan. |
+| [retro](https://github.com/mattpocock/skills/blob/main/skills/engineering/retro/SKILL.md) | Find evidence-backed improvements to the agent's shared and project-specific environment. | When a retrospective is explicitly requested. Follow [Improve this setup](improve-this-setup.md) for scope, review criteria, reviewers, and approval. |
 
 - `grill-with-docs` requires the `grilling` and `domain-modeling` skills. Its default outputs include glossary entries and qualifying architecture decisions.
+- `retro` requires `writing-for-agents`. Load both installed skills for a requested retrospective; the local workflow and review criteria in [Improve this setup](improve-this-setup.md) take precedence over upstream defaults.
 - Apply skills within [Scope of work](scope-of-work.md) and follow [Documentation](documentation.md) for their outputs.
 - `cleanup` checks its five companion skills before starting and asks to install any that are missing. Built-in fallback instructions require the user's explicit choice; leftover cleanup is built in. Upstream architecture surveys and whole-codebase rewrites are not part of its default scope.
 
@@ -19,6 +21,7 @@ Use the [skills CLI](https://github.com/vercel-labs/skills) to install the selec
 ```sh
 npx skills add DietrichGebert/ponytail --skill ponytail -g --agent codex claude-code
 npx skills add mattpocock/skills --skill grill-with-docs grilling domain-modeling -g --agent codex claude-code
+npx skills add mattpocock/skills --skill retro writing-for-agents -g --agent codex claude-code
 ```
 
 `-g` makes skills available across projects. Choose the symlink installation method so both tools share one canonical copy of each skill. Add agent names such as `cursor` or `opencode` to include more tools, or use `--agent '*'` for all supported targets. Avoid `--all`, which also selects every skill from the source.
