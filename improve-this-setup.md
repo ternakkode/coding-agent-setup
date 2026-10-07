@@ -1,0 +1,13 @@
+# Improve This Setup
+
+After completing a work item, ask for brief feedback on the whole flow: what worked, what was confusing or unnecessary, and what should change. Include any concrete setup improvement you noticed, clearly separated from the user's feedback.
+
+At the end of each session, also review what the whole conversation and the changes teach us about this setup:
+
+1. Save the full available conversation in a `.txt` file in Git-ignored `tmp/`, preserving message order, decisions, corrections, and relevant tool results. Redact secrets. If earlier messages or tool results are unavailable, state the missing coverage rather than reconstructing them as facts.
+2. Collect all session changes: committed, staged, unstaged, and new files. Use the session's starting revision and working-tree state to distinguish session changes from existing work. If that baseline is unavailable, label attribution as uncertain. Give reviewers the transcript, diffs, new-file contents, and relevant setup rules; keep review inputs in Git-ignored `tmp/`.
+3. Start two fresh, independent reviewers: one Sol subagent in Codex and one Opus subagent in Claude Code. Resolve the available model identifiers at runtime. Both must read the entire transcript and all changes, then identify what worked, what caused confusion or wasted effort, and which rules should be added, adjusted, or removed. Reviewers report findings without editing files or opening issues. If either model or full input is unavailable, report the gap; do not silently substitute a model or claim a complete review.
+4. Reconcile both reviews into a short set of evidence-backed proposals. For each proposal, cite the conversation or diff evidence, name the target rule file, suggest exact wording, and explain the expected improvement. Prefer adjusting existing rules over adding duplicates or rules for hypothetical problems. No proposed change is a valid result.
+5. Present these proposals separately from the user's feedback. Proposals need user approval before changing this setup or becoming issues. This review is a session closeout step, not a loop: reviewers do not run their own closeout reviews, and reporting the result does not trigger another review.
+
+When the user provides feedback, create an issue in `ternakkode/coding-agent-setup` using `gh issue create --repo ternakkode/coding-agent-setup`. Summarize the feedback, relevant workflow context, and suggested rule changes without including secrets or private project details. Use `--body-file` for the issue text and share the issue link. Do not invent feedback or create an issue if the user skips the request; record suggestions without automatically changing the setup.

@@ -20,3 +20,7 @@ For coding tasks, apply the relevant guides:
 - [Architecture](coding/architecture.md)
 - [Data design](coding/data-design.md)
 - [Testing](coding/testing.md)
+
+## Improve This Setup
+
+After completing a work item or closing a session, follow [Improve this setup](improve-this-setup.md) for user feedback, conversation-and-diff review, and proposed rule changes.
