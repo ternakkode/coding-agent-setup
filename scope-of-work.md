@@ -1,9 +1,7 @@
 # Scope of Work
 
-- Assume the user can understand complex ideas, but does not already know the context. Start with the problem, walk through one successful example, then explain the recommended decisions and tradeoffs.
-- Start with the main user journey and the simplest complete solution. Discussion, planning, and review do not authorize implementation.
-- Plan and implement in agreed iterations. Complete and check each approved iteration independently before proposing more work.
-- Discuss edge cases separately, from likely to rare, and explain their impact. Recommend which to handle now, defer, or leave unsupported.
-- Ask before expanding scope or adding recovery flows, retries, fallbacks, or abstractions beyond the agreement. Report unrelated issues without fixing them.
+- Discussion, planning, and review do not authorize implementation. Complete authorized work and relevant checks independently.
+- Make routine, reversible implementation decisions yourself. For decisions beyond the agreement that change user behavior, scope, compatibility, cost, or data safety, explain your recommendation with one concrete example and the main tradeoff, then ask for the decision needed.
+- Discuss additional behavior and recovery needs separately, ordered by likelihood and impact. Recommend what to handle now, defer, or leave unsupported; greater robustness is not an automatic requirement.
 - Raise risks that affect the basic design early. Include necessary security and data integrity in the initial scope.
-- Treat greater robustness as a deliberate decision, not an automatic requirement.
+- Report unrelated issues without fixing them. Continue work that does not depend on an open decision.

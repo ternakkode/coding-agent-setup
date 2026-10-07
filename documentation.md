@@ -1,9 +1,7 @@
 # Documentation
 
-- Create documents for a clear audience and purpose. Avoid duplicating information already maintained elsewhere.
-- Keep product and feature plans in epics, stories, and tasks as described in [Work planning](work-planning.md), rather than separate specification documents.
-- Human handover and review docs are durable. Save them in the project's docs location when requested. Explain outcomes, decisions, and verification through concrete examples; use Mermaid flowcharts, sequence diagrams, and pseudocode where they clarify the flow.
-- Writer navigation and planning notes, and AI implementation notes, belong in a Git-ignored `tmp/` folder. Never commit or push them.
-- AI notes capture the objective, scope, decisions, relevant files and symbols, verified state, open questions, and next action.
-- Keep AI notes concise and current so another session can resume with limited context. Link to source material instead of copying it.
-- Separate facts from assumptions. Recheck source code when notes may be stale; never treat a plan as proof of implementation.
+- Create documents only for a clear audience and purpose. Keep plans in work items as described in [Work planning](work-planning.md), without duplicate specifications.
+- Create durable human handover or review docs when requested. Lead with outcomes and examples; use Mermaid diagrams or pseudocode when they clarify the flow.
+- Keep writer planning notes and AI implementation notes in Git-ignored `tmp/`. Never commit or push them.
+- Keep AI notes concise and current: objective, scope, decisions, relevant source locations, verified state, open questions, and next action. Link to sources instead of copying them.
+- Separate facts from assumptions and recheck stale notes against the source. A plan is not proof of implementation.

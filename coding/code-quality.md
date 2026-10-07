@@ -1,8 +1,6 @@
 # Code Quality
 
-- Make the main business flow easy to understand.
-- Choose the simplest complete implementation for the agreed scope.
+- Make the main flow easy to understand. Choose the simplest complete implementation for the agreed scope.
+- Search for relevant existing implementations before adding code; broaden the search when needed. Reuse or extend what fits, checking the effect on existing callers.
 - Keep business rules consistent and avoid duplicating them.
-- Before adding code, search the entire codebase for existing implementations and duplication. Reuse or adjust existing code where it fits, extending it as needed within the agreed scope while preserving existing callers' behavior.
-- Make changes easy to verify and keep their effects predictable.
-- Fix root causes and preserve behavior outside the requested change.
+- Make changes easy to verify, fix root causes, and preserve behavior outside the requested change.
