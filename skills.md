@@ -5,7 +5,7 @@ The selected skills and MCP tools for this setup, with their purpose, usage, and
 | Skill | Purpose | When to use |
 |---|---|---|
 | [Ponytail](https://github.com/dietrichgebert/ponytail) | Simplify implementation through reuse, standard tools, and only the code needed. | During developer planning, implementation, and review. Keep explanations clear under our communication guide. |
-| [Cleanup](skills/cleanup/SKILL.md) | Coordinate six sequential cleanup stages, each with its own scope, assessment, and plan. | When asked to clean up a selected branch, feature, or subsystem. Preserve agreed behavior, verify the result, and keep review-only requests read-only. |
+| [Cleanup](skills/cleanup/SKILL.md) | Coordinate six sequential cleanup stages, each in a fresh subagent with an independent assessment. | When asked to clean up a selected branch, feature, or subsystem. Preserve agreed behavior, verify the result, and keep review-only requests read-only. |
 | [grill-with-docs](https://www.aihero.dev/skills-grill-with-docs) | Clarify vague requirements through rounds of focused questions and recorded decisions. | Invoke explicitly when the outcome, scope, or important decisions are unclear. Stay within the current decision and stop when the next iteration is clear enough to plan. |
 | [retro](https://github.com/mattpocock/skills/blob/main/skills/engineering/retro/SKILL.md) | Find evidence-backed improvements to the agent's shared and project-specific environment. | When a retrospective is explicitly requested. Follow [Improve this setup](improve-this-setup.md) for scope, review criteria, reviewers, and approval. |
 

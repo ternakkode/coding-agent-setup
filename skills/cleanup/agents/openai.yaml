@@ -1,4 +1,4 @@
 interface:
   display_name: "Cleanup"
   short_description: "Six-stage scoped cleanup and coding guide compliance"
-  default_prompt: "Use $cleanup to clean up this branch through six sequential stages, remove proven leftovers, check coding guide compliance, and verify the agreed behavior is preserved."
+  default_prompt: "Use $cleanup to clean up this branch through six sequential stages with a fresh subagent per stage, remove proven leftovers, check coding guide compliance, and verify the agreed behavior is preserved."

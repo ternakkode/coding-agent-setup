@@ -1,6 +1,6 @@
 ---
 name: cleanup
-description: Simplify a selected branch, feature, or subsystem through six sequential cleanup stages, applying and verifying each stage while preserving agreed behavior.
+description: Simplify a selected branch, feature, or subsystem through six sequential cleanup stages, each in a fresh subagent, while preserving agreed behavior.
 ---
 
 # Cleanup
@@ -10,6 +10,8 @@ Follow repository instructions and the user's requested target. Preserve agreed 
 Check the four companion skills by name in the skill catalog or local installation; read each `SKILL.md` at its stage. For missing skills, ask once to install from verified sources, stating scope and targets; reuse existing authorization and verify installations. Wait for approval or an explicit choice of built-in fallback guidance. Leftover cleanup is built in.
 
 ## Workflow
+
+Run stages sequentially in the same working tree, each in a fresh subagent (`fork_turns: "none"` when supported). Pass only its stage instructions, source locations, target/baseline, agreed behavior, permissions, and shared constraints—not earlier agents' reasoning or reports. Each agent independently assesses the full target for its assigned stage. The coordinator reviews findings and verification, resolves stage failures before advancing, and retains reports for the final summary. If fresh subagents are unavailable, report the workflow as blocked.
 
 **At each stage: scope → assess current code → plan briefly → apply → verify.** Apply findings even from assessment-only companion skills. Fix verification failures introduced by the stage before advancing; the next stage assesses the updated code. No findings means no changes. For read-only requests, report findings and proposed changes instead.
 
