@@ -1,6 +1,6 @@
 ---
 name: cleanup
-description: Simplify a selected branch, feature, or subsystem through five sequential cleanup stages, applying and verifying each stage while preserving agreed behavior.
+description: Simplify a selected branch, feature, or subsystem through six sequential cleanup stages, applying and verifying each stage while preserving agreed behavior.
 ---
 
 # Cleanup
@@ -20,9 +20,12 @@ Check the four companion skills by name in the skill catalog or local installati
 | 3. `codebase-design` | Abstractions: favor interfaces that hide complexity over added indirection. |
 | 4. `improve-codebase-architecture` | Structure: assess responsibilities, dependencies, and coordinated changes within the target. |
 | 5. Leftover cleanup | Completeness: trace removed paths; remove proven orphaned code, configuration, tests, docs, and generated artifacts. Search relevant hidden files too. |
+| 6. Coding guide compliance | Read every guide in [this setup's coding directory](../../coding/) and check the scoped result against every applicable rule. Fix in-scope gaps and rerun affected checks. Report compliance evidence, non-applicability, or unresolved gaps for each guide. |
 
 Keep stages within the user's target and skip unrelated surveys, reports, or interviews. Keep assessments brief; ask only about unresolved scope or behavior, not routine stage transitions.
 
 Trace real consumers before deletion; missing textual callers do not prove code is unused. Preserve public contracts, safeguards, migration history, and stored data unless changes are agreed. Report uncertain or unrelated candidates separately.
+
+For stage 6, resolve `../../coding/` from this skill's directory after following symlinks. If the skill was copied without the setup checkout, use the coding directory in the setup checkout referenced by the project's agent instructions. Resolve links within guides relative to their containing files. If the setup guides cannot be located, report the stage as incomplete.
 
 Verify retained behavior; report changes, checks, limitations, and approved fallbacks briefly. Stop when scoped cleanup is complete. External actions require separate authorization.
