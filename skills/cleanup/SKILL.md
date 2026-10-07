@@ -1,29 +1,29 @@
 ---
 name: cleanup
-description: Coordinate six sequential cleanup stages, each with its own scope, assessment, and plan. Use for simplifying a selected branch, feature, or subsystem while preserving agreed behavior.
+description: Simplify a selected branch, feature, or subsystem through six sequential cleanup stages, applying and verifying each stage while preserving agreed behavior.
 ---
 
 # Cleanup
 
 Follow repository instructions and the user's requested target. Preserve agreed behavior. Review, scan, and dry-run requests remain read-only.
 
-Check the five companion skills below by name before starting. Resolve each name through the available skill catalog or local installation and read its `SKILL.md` when running that stage. Ask once to install missing skills from verified sources, stating the installation scope and targets; reuse existing authorization. Wait for the decision and verify approved installations. Use built-in stage guidance only if the user explicitly chooses a fallback. Leftover cleanup is built in.
+Check the five companion skills by name in the skill catalog or local installation; read each `SKILL.md` at its stage. For missing skills, ask once to install from verified sources, stating scope and targets; reuse existing authorization and verify installations. Wait for approval or an explicit choice of built-in fallback guidance. Leftover cleanup is built in.
 
 ## Workflow
 
-Run these stages sequentially. **Each stage defines its own bounded cleanup scope, assesses the current code, and makes a concise plan** covering proposed changes and relevant verification. Carry findings forward and account for earlier changes. Follow each skill's role: assessment stages propose changes; execution stages apply them. No findings means no work is needed.
+**At each stage: scope → assess current code → plan briefly → apply → verify.** Apply findings even from assessment-only companion skills. Fix verification failures introduced by the stage before advancing; the next stage assesses the updated code. No findings means no changes. For read-only requests, report findings and proposed changes instead.
 
 | Stage / installed skill | Cleanup focus |
 |---|---|
 | 1. `ponytail` (ultra) | Necessity: remove avoidable implementation and prefer existing or native capabilities. |
 | 2. `ponytail-review` | Concrete cuts: identify redundant code, speculative flexibility, and unnecessary dependencies. |
-| 3. `codebase-design` | Abstractions: assess which interfaces hide useful complexity and which merely add indirection. |
+| 3. `codebase-design` | Abstractions: favor interfaces that hide complexity over added indirection. |
 | 4. `improve-codebase-architecture` | Structure: assess responsibilities, dependencies, and coordinated changes within the target. |
-| 5. `codebase-simplifier` | Implementation: reconcile earlier proposals and simplify the affected code. |
-| 6. Leftover cleanup | Completeness: trace removed paths and remove proven orphaned code, configuration, tests, documentation, and applicable generated artifacts. Include relevant hidden files in searches. |
+| 5. `codebase-simplifier` | Implementation: further simplify the updated code. |
+| 6. Leftover cleanup | Completeness: trace removed paths; remove proven orphaned code, configuration, tests, docs, and generated artifacts. Search relevant hidden files too. |
 
-Keep each stage's scope within the user's target. Use companion skills without importing unrelated surveys, reports, or interviews. Keep assessments and plans brief; request decisions only when needed to resolve scope or behavior, not between every stage.
+Keep stages within the user's target and skip unrelated surveys, reports, or interviews. Keep assessments brief; ask only about unresolved scope or behavior, not routine stage transitions.
 
-Search broadly, edit within scope. Trace real consumers before deletion; a missing textual caller does not prove code is unused. Preserve public contracts, required safeguards, migration history, and stored data unless changes are agreed. Report uncertain or unrelated candidates separately.
+Trace real consumers before deletion; missing textual callers do not prove code is unused. Preserve public contracts, safeguards, migration history, and stored data unless changes are agreed. Report uncertain or unrelated candidates separately.
 
-Verify retained behavior and briefly report changes, checks, limitations, and approved fallbacks. Stop when the scoped cleanup is complete. External actions require their own authorization.
+Verify retained behavior; report changes, checks, limitations, and approved fallbacks briefly. Stop when scoped cleanup is complete. External actions require separate authorization.
