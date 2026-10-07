@@ -1,13 +1,13 @@
 ---
 name: cleanup
-description: Simplify a selected branch, feature, or subsystem through six sequential cleanup stages, applying and verifying each stage while preserving agreed behavior.
+description: Simplify a selected branch, feature, or subsystem through five sequential cleanup stages, applying and verifying each stage while preserving agreed behavior.
 ---
 
 # Cleanup
 
 Follow repository instructions and the user's requested target. Preserve agreed behavior. Review, scan, and dry-run requests remain read-only.
 
-Check the five companion skills by name in the skill catalog or local installation; read each `SKILL.md` at its stage. For missing skills, ask once to install from verified sources, stating scope and targets; reuse existing authorization and verify installations. Wait for approval or an explicit choice of built-in fallback guidance. Leftover cleanup is built in.
+Check the four companion skills by name in the skill catalog or local installation; read each `SKILL.md` at its stage. For missing skills, ask once to install from verified sources, stating scope and targets; reuse existing authorization and verify installations. Wait for approval or an explicit choice of built-in fallback guidance. Leftover cleanup is built in.
 
 ## Workflow
 
@@ -19,8 +19,7 @@ Check the five companion skills by name in the skill catalog or local installati
 | 2. `ponytail-review` | Concrete cuts: identify redundant code, speculative flexibility, and unnecessary dependencies. |
 | 3. `codebase-design` | Abstractions: favor interfaces that hide complexity over added indirection. |
 | 4. `improve-codebase-architecture` | Structure: assess responsibilities, dependencies, and coordinated changes within the target. |
-| 5. `codebase-simplifier` | Implementation: further simplify the updated code. |
-| 6. Leftover cleanup | Completeness: trace removed paths; remove proven orphaned code, configuration, tests, docs, and generated artifacts. Search relevant hidden files too. |
+| 5. Leftover cleanup | Completeness: trace removed paths; remove proven orphaned code, configuration, tests, docs, and generated artifacts. Search relevant hidden files too. |
 
 Keep stages within the user's target and skip unrelated surveys, reports, or interviews. Keep assessments brief; ask only about unresolved scope or behavior, not routine stage transitions.
 
