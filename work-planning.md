@@ -10,7 +10,7 @@ Start with the outcome appropriate to the work:
 | Refactor | Structural improvement and behavior to preserve. |
 | Bug fix | Expected versus actual behavior, supported by reproduction or evidence. |
 
-Use work items as the source of truth. For larger work, use epics for broad outcomes, stories for demonstrable user behavior, and tasks for bounded implementation steps. A small fix can be one task.
+Use work items as the source of truth. For larger work, use epics for broad outcomes, stories for demonstrable user behavior, and tasks for bounded implementation steps. A small fix can be one task. In plans and handoffs, preserve material decisions and their source so the next human or agent can distinguish requested work, accepted additions, and unresolved proposals.
 
 Keep discussions in order, one hat at a time. Keep stages brief when decisions are already clear:
 
