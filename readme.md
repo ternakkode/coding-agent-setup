@@ -47,6 +47,8 @@ Codex uses `~/.codex` by default, or your custom `CODEX_HOME`. A global `AGENTS.
 
 Follow the [skills and MCP catalog](skills.md) for the selected tools, when to use them, dependencies, and installation instructions. Keep that file as the single list for this setup.
 
+For JavaScript and TypeScript projects, install the [device Oxfmt and Oxlint checks](linting/oxlint/README.md). Agents run these against the target project alongside its own checks; generated projects remain independent of device tooling.
+
 ### 4. Enable feedback and verify
 
 ```sh

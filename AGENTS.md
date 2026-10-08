@@ -7,6 +7,7 @@ State the outcome, constraints, and evidence needed. Let the agent choose routin
 - Discussion and review remain read-only unless implementation is requested. Complete authorized work independently.
 - Preserve agreed behavior and scope. Ask about material decisions outside that agreement, including compatibility, cost, or data safety; report unrelated findings separately.
 - Follow repository conventions and make the smallest sufficient change. Verify the outcome with relevant checks.
+- For JavaScript or TypeScript changes, run the [setup-owned Oxfmt and Oxlint checks](linting/oxlint/README.md#use-in-any-project) against the target project's absolute path, alongside project checks. Keep device tooling out of generated project scripts, dependencies, hooks, and CI.
 - Communicate clearly and concisely. Report changes, verification, and meaningful limitations; distinguish evidence from assumptions.
 - Do not change these setup rules without approval.
 
