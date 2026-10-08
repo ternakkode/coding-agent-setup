@@ -14,35 +14,39 @@ The selected skills and MCP tools for this setup, with their purpose, usage, and
 - Apply skills within [Scope of work](scope-of-work.md) and follow [Documentation](documentation.md) for their outputs.
 - `cleanup` checks its four companion skills before starting and asks to install any that are missing. Built-in fallback instructions require the user's explicit choice; leftover cleanup is built in. Upstream architecture surveys and whole-codebase rewrites are not part of its default scope.
 
+## Managed Inventory
+
+This inventory is the complete skill set managed by [setup alignment](setup-alignment.md). Every row is required for Codex and Claude Code, including companions. Other installed skills belong to the user and remain untouched. Skill contents include all files in the listed directory, not only `SKILL.md`.
+
+External sources are pinned to full Git commits. Source directories are relative to the named repository:
+
+| Source | Repository | Commit |
+|---|---|---|
+| Ponytail | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | `b088b2df6e08d4306c6a3c3d575fe38c2d2d2989` |
+| Matt Pocock | [mattpocock/skills](https://github.com/mattpocock/skills) | `b0618bc436ad893b3c5e84e55fba86586d34a404` |
+
+| Skill | Role | Source | Directory |
+|---|---|---|---|
+| `cleanup` | Six-stage cleanup workflow | This checkout | `skills/cleanup` |
+| `ponytail` | Implementation simplification; cleanup stage 1 | Ponytail | `skills/ponytail` |
+| `ponytail-review` | Cleanup stage 2 | Ponytail | `skills/ponytail-review` |
+| `codebase-design` | Cleanup stage 3 | Matt Pocock | `skills/engineering/codebase-design` |
+| `improve-codebase-architecture` | Cleanup stage 4 | Matt Pocock | `skills/engineering/improve-codebase-architecture` |
+| `grill-with-docs` | Requirements clarification | Matt Pocock | `skills/engineering/grill-with-docs` |
+| `grilling` | Companion to `grill-with-docs` | Matt Pocock | `skills/productivity/grilling` |
+| `domain-modeling` | Companion to `grill-with-docs` | Matt Pocock | `skills/engineering/domain-modeling` |
+| `retro` | Setup retrospective | Matt Pocock | `skills/engineering/retro` |
+| `writing-for-agents` | Companion to `retro`; agent documentation | Matt Pocock | `skills/productivity/writing-for-agents` |
+
 ## Install Skills
 
-Use the [skills CLI](https://github.com/vercel-labs/skills) to install the selected skills for both Codex and Claude Code:
+Follow [setup alignment](setup-alignment.md) for both initial installation and updates. Use `skills@1.7.1` when invoking the skills CLI; its installation behavior is part of this setup's version policy.
 
-```sh
-npx skills add DietrichGebert/ponytail --skill ponytail ponytail-review -g --agent codex claude-code
-npx skills add mattpocock/skills --skill grill-with-docs grilling domain-modeling -g --agent codex claude-code
-npx skills add mattpocock/skills --skill retro writing-for-agents -g --agent codex claude-code
-```
+Keep one canonical installation per managed skill under `~/.agents/skills/<name>`. `cleanup` is a symbolic link directly to this checkout's `skills/cleanup` directory. External skills are complete copies from the pinned source directories. Claude Code links to these canonical installations; Codex uses the shared directory. Existing per-agent links for these names must resolve to the same source. Preserve unrelated skills and agent settings.
 
-`-g` makes skills available across projects. Choose the symlink installation method so both tools share one canonical copy of each skill. Add agent names such as `cursor` or `opencode` to include more tools, or use `--agent '*'` for all supported targets. Avoid `--all`, which also selects every skill from the source.
+For a missing or mismatched external skill, obtain the repository at its pinned commit and verify `git rev-parse HEAD` before installation. The skills CLI can install from that local source checkout, selecting only the inventory names with `--skill`, `--global`, `--agent codex claude-code`, and `--yes`. Use its symlink mode, not `--copy`. Verify the installed files afterwards; CLI success or lock metadata alone is insufficient. The disposable source checkout is not the installed skill's link target. The repository pins remain authoritative even if the CLI records that temporary source as a local installation.
 
-`grill-with-docs` needs both listed dependencies. See the [Ponytail source](https://github.com/dietrichgebert/ponytail) and [grill-with-docs guide](https://www.aihero.dev/skills-grill-with-docs).
-
-Install the repository-owned cleanup skill from your local checkout:
-
-```sh
-npx skills add /absolute/path/coding-agent-setup --skill cleanup -g --agent codex claude-code
-```
-
-Invoke it with `Use $cleanup to clean up this branch while preserving the agreed behavior.` It runs six stages in sequence, ending with coding guide compliance. For findings without edits, ask for a review or dry run. Before starting, it checks the four companion skills and asks to install any that are missing. You can explicitly choose built-in fallback instructions instead. Leftover cleanup and coding guide compliance need no separate installation.
-
-The Ponytail command above installs both `ponytail` and `ponytail-review`. Cleanup uses `ponytail` in ultra mode (source listed above), plus these companion skills. Consult these links when installing a missing companion; use the installed skill by name during cleanup.
-
-| Companion skill | Installation reference |
-|---|---|
-| `ponytail-review` | [Source](https://github.com/DietrichGebert/ponytail/blob/main/skills/ponytail-review/SKILL.md) |
-| `codebase-design` | [Guide](https://www.aihero.dev/skills-codebase-design) |
-| `improve-codebase-architecture` | [Guide](https://www.aihero.dev/skills-improve-codebase-architecture) |
+Invoke cleanup with `Use $cleanup to clean up this branch while preserving the agreed behavior.` It runs six stages in sequence, ending with coding guide compliance. For findings without edits, ask for a review or dry run. It checks its four companions before starting; fallback guidance requires an explicit choice. Leftover cleanup and coding guide compliance are built in.
 
 ## MCP Tools
 
@@ -52,10 +56,8 @@ The Ponytail command above installs both `ponytail` and `ponytail-review`. Clean
 
 ### Connect Context7
 
-Context7 is an MCP connection, configured separately in each tool. Run its setup once for Codex and once for Claude Code, selecting the relevant tool each time:
+Context7 is required in each target agent's global MCP configuration. Preserve an existing supported transport and authentication method. For a missing connection, use local stdio with `npx -y @upstash/context7-mcp@4.2.0`; supply authentication through the client's existing secure configuration. For an existing stdio connection, use that same exact package version instead of an unversioned package or `@latest`.
 
-```sh
-npx ctx7 setup --mcp
-```
+An existing hosted connection is also supported: `https://mcp.context7.com/mcp` with API-key authentication or `https://mcp.context7.com/mcp/oauth` with OAuth. The hosted service version is provider-managed; alignment verifies the endpoint, authentication, and tools rather than claiming a pinned server version.
 
-Follow the authentication and agent-selection prompts. Reuse existing connections and keep credentials outside this repository. For clients not offered by the setup, follow [Context7’s client-specific instructions](https://github.com/upstash/context7/blob/master/docs/resources/all-clients.mdx). See the [Context7 setup CLI](https://github.com/upstash/context7/blob/master/docs/clients/cli.mdx) for supported options.
+Use the [official client configuration guidance](https://context7.com/docs/resources/all-clients) for configuration syntax. Keep credentials outside this repository and out of output or ordinary backups. Verify `resolve-library-id` and `query-docs` through each agent with a harmless documentation lookup. A configured entry alone does not prove the connection works. Missing credentials, inaccessible services, or an unavailable agent are reported as blocked, while independent alignment steps continue.

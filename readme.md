@@ -8,7 +8,7 @@ See [AGENTS.md](AGENTS.md) for the guides and [skills and MCP catalog](skills.md
 
 ## Set Up a Device
 
-Keep one checkout of these guides and point your coding tools to it. The steps below cover Codex and Claude Code; other tools can use the same source through their own instruction settings. Have Git, Node.js/npm, GitHub CLI (`gh`), and your chosen coding tools installed. Shell examples use macOS/Linux or WSL.
+Keep one checkout of these guides and point your coding tools to it. The steps below cover Codex and Claude Code; other tools can use the same source through their own instruction settings. Have Git, Node.js/npm, GitHub CLI (`gh`), and your chosen coding tools installed. For an agent-run setup, ask: **“Align this device with this repository.”** The agent follows [setup alignment](setup-alignment.md) for initial installation and later updates. Shell examples use macOS/Linux or WSL.
 
 ### 1. Download the guides
 
@@ -45,7 +45,7 @@ Codex uses `~/.codex` by default, or your custom `CODEX_HOME`. A global `AGENTS.
 
 ### 3. Configure skills and MCP tools
 
-Follow the [skills and MCP catalog](skills.md) for the selected tools, when to use them, dependencies, and installation instructions. Keep that file as the single list for this setup.
+Follow [setup alignment](setup-alignment.md), using the [managed inventory](skills.md#managed-inventory) as the complete list of skills and companions. That procedure covers pinned installations, shared links, device lint tooling, and MCP verification.
 
 For JavaScript and TypeScript projects, install the [device Oxfmt and Oxlint checks](linting/oxlint/README.md). Agents run these against the target project alongside its own checks; generated projects remain independent of device tooling.
 
@@ -54,21 +54,14 @@ For JavaScript and TypeScript projects, install the [device Oxfmt and Oxlint che
 ```sh
 gh auth login
 gh auth status
-npx skills ls -g
 ```
 
 GitHub access lets the agent file your feedback in this repository. Start fresh Codex and Claude Code sessions in another project. Ask both to report the absolute path of the shared `AGENTS.md` they read, summarize its guides, confirm the skills listed in the [catalog](skills.md) are available, and exercise the configured MCP connections. Both should report the same checkout path. Use each tool’s MCP settings or status command to inspect the connection; a listed connection alone does not prove the lookup works.
 
-## Update the Guides
+## Align or Update a Device
 
-```sh
-git -C "$HOME/.agents/coding-agent-setup" pull --ff-only
-```
+Ask your agent: **“Align this device with this repository.”** It follows [setup alignment](setup-alignment.md), compares every managed component, repairs mismatches, and reports evidence. Already aligned components remain unchanged; unrelated local skills and settings stay intact.
 
-Use your checkout path if different. One pull updates the guide and owned-skill source. After pulling, rerun the owned skill's local installation command from the [catalog](skills.md#install-skills) to refresh its installed copy, then start new sessions. Skills and MCP packages from other sources are installed separately.
+Alignment uses this checkout's current contents. To fetch repository updates first, say **“Pull the latest setup and align this device.”** The agent uses a fast-forward-only pull when the checkout is clean, then follows the same procedure. Local edits or diverged history are reported without resetting them.
 
-Update installed skills separately when needed:
-
-```sh
-npx skills update -g
-```
+External skills follow the exact revisions in the [managed inventory](skills.md#managed-inventory). To change those revisions, explicitly request **“Upgrade the managed upstream skills.”** The agent reviews upstream changes, updates the inventory pins, then aligns the device. A blanket global skill update is not part of alignment.

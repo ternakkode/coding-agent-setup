@@ -25,6 +25,7 @@ Read the applicable guides before implementation or review; consult examples whe
 | [Scope of work](scope-of-work.md) | Resolving scope, behavior, or authorization decisions. |
 | [Work planning](work-planning.md) | Planning uncertain or coordinated work, preserving decisions in handoffs, or delegating. |
 | [Documentation](documentation.md) | Creating documents, plans, or handover notes. |
+| [Setup alignment](setup-alignment.md) | Installing, updating, repairing, or checking this device against the repo; includes requests to update everything in the local setup. |
 | [Skills and MCP catalog](skills.md) | Selecting a skill or tool, including the cleanup workflow; read installation sections only for setup. |
 | [Code quality](coding/code-quality.md) | Writing, refactoring, or reviewing code; covers contracts, validation, pseudocode, and worked examples. |
 | [Architecture](coding/architecture.md) | Writing, refactoring, or reviewing responsibilities, interfaces, or dependencies; covers cohesion, coupling, and script flows. |
