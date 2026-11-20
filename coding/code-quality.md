@@ -1,34 +1,26 @@
 # Code Quality
 
-- Make inputs, business steps, and outputs clear. Use the simplest complete implementation for the agreed scope.
-- Separate logical steps with blank lines; keep related statements together.
-- For JavaScript or TypeScript, run project checks and the [device Oxfmt and Oxlint checks](../linting/oxlint/README.md) before completion. Format before checking spacing; device rules run independently of project configuration. Review business-step grouping beyond the static conventions.
-- Reuse existing implementations, keep business rules consistent, and check effects on callers.
-- Apply [cohesion and coupling](architecture.md#cohesion-and-coupling) when writing, refactoring, or reviewing code.
-- Fix root causes, preserve unrelated behavior, and verify outcomes. Passing tests and formatting alone do not prove readability.
-- Names convey business meaning, units, and timing where relevant. Comments explain intent, rules, or assumptions; preserve required documentation.
+- Make inputs, business steps, and outputs visible in the main flow. Separate logical steps with blank lines; keep related statements together.
+- Keep each rule with one owner. A policy, vendor, or formula change should touch its owner and necessary callers, not unrelated code. Keep vendor I/O, decoding, and pagination apart from business rules, which take supplied data.
+- Choose the smallest useful boundary: a function for a focused responsibility, a file for related functions, a folder for cohesive files. Client, DB, and repository folders are examples, not required layers.
 
 ## Contracts and Validation
 
-- Decode uncertain external data at its input boundary; validate each invariant with its owner, and let downstream code trust that guarantee unless new uncertainty arises. Keep guaranteed fields required, model genuine absence, and test malformed shapes at the decoder. Static types alone do not validate external data.
-- Reuse existing contracts and named domain values. Each runtime check must address an identified uncertainty or business rule; verify producer guarantees before removing checks.
-- Preserve business decisions and response omission rules. Avoid defaults or coercion that disguise invalid data.
-- Reuse named business checks from existing validation modules. Pass required data explicitly and show checks in the caller's flow.
+- Decode uncertain external data at its input boundary and validate each invariant with its owner; downstream code trusts that guarantee. Keep guaranteed fields required, model genuine absence, and test malformed shapes at the decoder. Static types alone do not validate external data.
+- Each runtime check addresses an identified uncertainty or business rule. Verify producer guarantees before removing a check, and never remove positivity, precision, authorization, or funds checks because a value has a primitive type.
+- Avoid defaults or coercion that disguise invalid data. Reuse named domain values and business checks, and show checks in the caller's flow.
 
-## Pseudocode
+## Data Changes
 
-Pseudocode is the smallest complete explanation of behavior, leaving language and library choices open. Use it when decisions, state, or effects need explanation:
+Before changing an API contract or schema, show the affected shapes with realistic request and response examples, optional and nullable fields, validation, and errors. Describe changed fields, constraints, and how existing data is handled, and resolve compatibility and data-safety decisions before coding.
 
-1. State the contract, assumptions, relevant failures, and unresolved decisions.
-2. Sketch meaningful actions at a consistent level of detail. Expand rules needed for correctness.
-3. Show branches, data flow, external effects, and cumulative versus per-iteration state.
-4. Trace representative inputs, boundaries, and failures. Each important rule and result must be understandable from the flow and supporting contracts.
+## Tests
 
-Keep working sketches under the [temporary-documentation policy](../documentation.md), linked to task requirements.
+Test the critical user journey and the likely or high-impact failures through observable behavior, at the lowest-cost level that proves the outcome. Use Given–When–Then and the project's existing conventions.
 
 ## Examples
 
-Consult an example when its task shape needs clarification; adapt its contracts to the agreed requirements:
+Consult an example when its task shape needs clarification:
 
 - [Small calculation](examples/small-calculation.md): a focused rule and empty input.
 - [Rename a project](examples/rename-project.md): validation, authorization, persistence, and failures.

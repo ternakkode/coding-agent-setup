@@ -1,0 +1,11 @@
+{
+  "name": "coding-agent-setup",
+  "owner": { "name": "ternakkode" },
+  "plugins": [
+    {
+      "name": "coding-agent-setup",
+      "source": "./",
+      "description": "Personal Claude Code setup: plan-work and handover skills with Context7 documentation lookup."
+    }
+  ]
+}
