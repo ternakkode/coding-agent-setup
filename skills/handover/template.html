@@ -1,0 +1,86 @@
+<title>PR_TITLE</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root {
+	--bg: #f6f7f9; --surface: #fff; --ink: #17191e; --muted: #5b6270; --rule: #dcdfe5;
+	--accent: #8a4b0b; --add: #1c7a3b; --del: #ad2b2b; --add-bg: #e5f4e9; --del-bg: #fbe8e8; --code: #e8eaee;
+	color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--bg: #101215; --surface: #171a1f; --ink: #e6e8ec; --muted: #9aa1ad; --rule: #2b3038;
+		--accent: #e3a05a; --add: #76d396; --del: #f09a9a; --add-bg: #12301d; --del-bg: #3a1719; --code: #262b33;
+		color-scheme: dark;
+	}
+}
+:root[data-theme="dark"] {
+	--bg: #101215; --surface: #171a1f; --ink: #e6e8ec; --muted: #9aa1ad; --rule: #2b3038;
+	--accent: #e3a05a; --add: #76d396; --del: #f09a9a; --add-bg: #12301d; --del-bg: #3a1719; --code: #262b33;
+	color-scheme: dark;
+}
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+main { max-width: 1040px; margin: 0 auto; padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 44px; }
+header, section { display: grid; gap: 14px; min-width: 0; }
+header > *, section > * { min-width: 0; }
+h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0; }
+h2 { font-size: 22px; margin: 0; }
+h3 { font: 500 14px ui-monospace, monospace; color: var(--accent); margin: 0; overflow-wrap: anywhere; }
+p { margin: 0; }
+.note { color: var(--muted); }
+a { color: inherit; text-underline-offset: 3px; }
+a:hover { color: var(--accent); }
+code { font: 0.9em ui-monospace, monospace; background: var(--code); padding: 0.1em 0.35em; border-radius: 4px; }
+.stats { font: 14px ui-monospace, monospace; color: var(--muted); }
+.stats .add { color: var(--add); } .stats .del { color: var(--del); }
+.callout { border-left: 3px solid var(--accent); background: var(--surface); padding: 10px 14px; border-radius: 0 6px 6px 0; }
+.label { font: 12px ui-monospace, monospace; letter-spacing: 0.04em; color: var(--accent); display: block; }
+.callout ul { margin: 4px 0 0; padding-left: 18px; }
+details.decision { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; }
+details.decision summary { cursor: pointer; padding: 10px 16px; font-weight: 600; }
+details.decision .tag { font: 12px ui-monospace, monospace; border: 1px solid var(--rule); border-radius: 999px; padding: 1px 8px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+details.decision > div { padding: 0 16px 14px; display: grid; gap: 8px; }
+figure.diff { margin: 0; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--surface); }
+figure.diff figcaption { font: 12px ui-monospace, monospace; padding: 8px 12px; border-bottom: 1px solid var(--rule); color: var(--muted); overflow-wrap: anywhere; }
+figure.diff pre { margin: 0; padding: 8px 0; font: 13px/1.6 ui-monospace, monospace; tab-size: 2; }
+pre span { display: block; padding: 0 12px; white-space: pre-wrap; word-break: break-word; }
+pre .a { background: var(--add-bg); } pre .d { background: var(--del-bg); }
+.tests ul { margin: 4px 0 0; padding-left: 20px; list-style: none; display: grid; gap: 4px; }
+.tests li[data-change]::before { display: inline-block; width: 20px; margin-left: -20px; }
+.tests li[data-change="added"]::before { content: "+"; color: var(--add); }
+.tests li[data-change="modified"]::before { content: "~"; color: var(--accent); }
+.tests li[data-change="removed"]::before { content: "−"; color: var(--del); }
+</style>
+<main>
+	<header>
+		<h1>PR_TITLE</h1>
+		<p class="stats" data-additions="PR_ADDITIONS" data-deletions="PR_DELETIONS" data-generated="PR_GENERATED"></p>
+		<!-- Header content goes here. -->
+	</header>
+	<!-- Sections go here. -->
+</main>
+<script>
+// Mark the diff rows and count the shown lines for the header.
+let added = 0;
+let removed = 0;
+for (const pre of document.querySelectorAll("figure.diff pre")) {
+	const rows = pre.textContent.replace(/\n$/, "").split("\n");
+	pre.replaceChildren(...rows.map((row) => {
+		const span = document.createElement("span");
+		const mark = row[0];
+		span.textContent = row;
+		if (mark === "+") { span.className = "a"; added += 1; }
+		if (mark === "-") { span.className = "d"; removed += 1; }
+		return span;
+	}));
+}
+// Test names count too: removed tests as removed lines, the rest as added.
+for (const test of document.querySelectorAll(".tests li[data-change]")) {
+	if (test.dataset.change === "removed") removed += 1; else added += 1;
+}
+const stats = document.querySelector(".stats");
+const prTotal = Number(stats.dataset.additions) + Number(stats.dataset.deletions);
+const percent = ((100 * (added + removed)) / prTotal).toFixed(1);
+stats.innerHTML = `Shown <span class="add">+${added}</span> <span class="del">−${removed}</span>`
+	+ ` of the PR’s <span class="add">+${stats.dataset.additions}</span> <span class="del">−${stats.dataset.deletions}</span> (${percent}%)`
+	+ (Number(stats.dataset.generated) > 0 ? `, of which ${Number(stats.dataset.generated).toLocaleString("en")} are generated` : "");
+</script>

@@ -1,0 +1,60 @@
+# Pull Request Walkthrough
+
+The page lets a reviewer check the direction of a PR without reading the whole diff: a small, exact part of the code, with each decision next to the code it shapes.
+
+## Gather
+
+Get the facts once with `gh pr view <pr> --json url,title,body,additions,deletions,headRefOid,files` and save the diff with `gh pr diff <pr> > tmp/pr.diff`; search and slice that file rather than loading it whole. In a local clone, `git fetch origin <head sha>` and `git show <sha>:<path>` read files at the head commit; elsewhere use `gh api`. Never check out, pull, or stash in a working copy you were not given.
+
+Read the description, the diff, and the open review threads that people (not bots) started; only GraphQL tells open threads from resolved ones (`gh api graphql` on `pullRequest.reviewThreads` with `isResolved` and `comments`). Then read the changed code at the head commit until you know the contracts between the parts. Skip what you wrote this session and still know.
+
+## Story
+
+One page, in this order; leave out what the PR does not have:
+
+1. **Header:** the PR title, the problem and the chosen solution in a few sentences, the shown-lines line, and **Check these** (see below).
+2. **Flow:** a small diagram (see the `artifact-diagramming` skill), only when the PR adds or changes links between system parts and the links are more than a straight line.
+3. **One section per system part,** in the order the data or control moves: producer before consumer, caller before callee. Name each section after the part, not after a file.
+4. **Tests.**
+5. **Verified** and **Remaining.** **Changes** is the page itself.
+
+## Code
+
+Each diff is unified lines: `+` added, `-` removed, a space unchanged. Shorten the code with the language's comment syntax for left-out parts (`// ...`, `# ...`), and keep the enclosing declaration so the reader knows where the code sits. When code exists on both sides, show it on both sides, shortened the same way, so only real changes are `+` or `-`. Caption each diff with its path, linked to the line at the head commit.
+
+- **Show:** signatures, types, and contracts between parts; both ends of each contract (where the value is made and where it is read); code on hot paths; comments that explain a why; a removed safety net (try/catch, fallback) on the old side; a legacy path that stays.
+- **Leave out:** imports, guards on inputs, internal helpers, implementation that the names already describe, test bodies, generated files, and code that only moves or is renamed. Show a change repeated in many places once, with a comment naming the other places.
+- **Prose** says only what the code cannot show: a why, a cost, or a fact about code the page leaves out.
+
+Keep the shown lines under 20% of the PR's added plus removed lines, and much lower for large PRs.
+
+## Decisions
+
+Take the decisions from the description's Decisions section. When it has none, use the choices the description or code comments state ("deliberately", "instead of"), mark them implicit, and tell the user to add them to the description. Put each one at the top of the section it shapes, or in the header when it covers the whole PR.
+
+## Tests
+
+- List every test the PR adds, removes, or changes in what it checks, grouped by file and by describe block. Write the names in words, as close to the code name as possible.
+- Find removed tests in the diff's removed lines (for example `grep -E '^-\s*(it|test|describe)\(|^-\s*def test_|^-\s*func Test' tmp/pr.diff`), and drop those whose name comes back on an added line. A test renamed with the same checks is `modified`, with the old name in its `title`.
+- Before listing a test, read its full body: in the diff when it is new and complete there, else at the head commit. When its name claims something no assertion checks, list a name written from the assertions and add a callout with the code name and what it really checks. Check each case of a parameterized test on its own.
+
+## Check These
+
+Also compare the description with the code, and settings with their comments. Put each mismatch, or each value that looks wrong, in a callout next to the code it concerns, and link them all from the header's **Check these** callout. Tell the user about them too.
+
+## Page
+
+Copy [`template.html`](template.html) with `cp`, then edit only its `PR_` placeholders and the two comment slots. `PR_GENERATED` is the added plus removed lines in generated or lock files (0 when none); the template's script counts the shown lines. Its markup:
+
+```html
+<p class="note">Prose.</p>
+<aside class="callout"><span class="label">Check</span>A finding.</aside>
+<details class="decision"><summary>Choice<span class="tag">Implicit</span></summary>
+  <div><p class="note">Why.</p><p><span class="label">Trade-off</span>…</p><p class="note"><span class="label">Alternatives</span>…</p></div></details>
+<figure class="diff"><figcaption><a href="…/blob/<head sha>/<path>#L<n>">path</a></figcaption><pre>
+ unchanged
++added
+</pre></figure>
+<div class="tests"><h3>test/file/path</h3><p>Describe block</p>
+  <ul><li data-change="added|modified|removed">test name in words</li></ul></div>
+```
