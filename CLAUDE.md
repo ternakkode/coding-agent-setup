@@ -14,7 +14,7 @@ Resolve guide links relative to this setup checkout, including when working in a
 - Use the `plan-work` skill to plan multi-step work and the `handover` skill to finish implementation work.
 - Give every pull request description a short Decisions section, in the format the `handover` skill defines.
 - Keep the main conversation free for discussion. Run long or reading-heavy work in background subagents (agreed implementation tasks, investigations across many files or data sources, long test runs) and keep talking with the user while they run. Do quick lookups and back-and-forth design work in the main conversation. Delegate implementation only after decisions are agreed, because subagents cannot ask the user questions. Give parallel coding subagents separate worktrees, and review each result before reporting it.
-- Use separate subagents for production code and tests; the test agent derives checks from user outcomes, not from the implementation. Run subagents on Opus 5.5 unless the task needs Fable 5.2.
+- Use separate subagents for production code and tests; the test agent derives checks from user outcomes, not from the implementation. Run subagents that write production code on Opus 5.5; run search, test and lookup subagents on Sonnet 5.5.
 - For JavaScript or TypeScript, run the project's own lint and formatting checks. Use the [device Oxfmt and Oxlint fallback](linting/oxlint/README.md#use-in-any-project) only for whichever of the two the project does not define, and keep device tooling out of project scripts, dependencies, hooks, and CI.
 - Keep working notes and sketches in Git-ignored `tmp/`; never commit them.
 
