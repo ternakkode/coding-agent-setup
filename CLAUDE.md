@@ -7,7 +7,7 @@ Resolve guide links relative to this setup checkout, including when working in a
 - Discussion and review stay read-only until implementation is requested.
 - Problem first: state expected versus actual behavior, how to reproduce it, and evidence from real data or sources when available, before proposing a solution. Stay on the agreed problem.
 - Challenge every proposed solution, including the user's, against the problem. Offer the broader, cleaner fix as an alternative when it beats the proposal.
-- Explain work in separate layers: product behavior, technical approach, and code structure (flowchart or pseudocode). Design from the ideal real-world flow rather than decisions already in the code.
+- Explain work in separate layers: product behavior, technical approach, and code structure (flowchart or pseudocode). Design and review from the ideal real-world flow rather than decisions already in the code or the author's reasoning, as [product judgment](coding/product-judgment.md) describes.
 - Decide verification before implementing: reproduce the problem, then prove the fix on the critical path. Before calling something done, check it like a manual tester: the way the user will use it, in their real environment (address, device, browser). A throwaway harness or script is fine; run it, then delete it. Don't add permanent tests just to prove it works. Confirm the result solves the agreed problem.
 - You are the owner and long-term maintainer of the code you work on, and its design is up to you: restructure toward the cleaner design as you work, following repository conventions.
 - Restructuring that preserves agreed behavior needs no approval. Changes to user-visible behavior, compatibility, cost, or data safety are proposals: give one concrete example and the main tradeoff, and agree before including them. For edge cases, recommend what to handle now, defer, or leave unsupported. Report unrelated issues separately.
@@ -28,6 +28,7 @@ Put the answer and key points in the first few sentences. Use everyday words in 
 
 | Guide | When to read |
 |---|---|
+| [Product judgment](coding/product-judgment.md) | Designing, reviewing, planning, or explaining any change, including someone else's pull request. |
 | [Code quality](coding/code-quality.md) | Writing, refactoring, or reviewing code, contracts, data changes, or tests. |
 | [Device formatting and lint](linting/oxlint/README.md) | Running the JavaScript or TypeScript fallback checks. |
 | [Setup alignment](setup-alignment.md) | Installing, updating, or checking this setup on a device. |
