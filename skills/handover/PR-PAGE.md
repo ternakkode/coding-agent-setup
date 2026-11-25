@@ -6,7 +6,7 @@ The page lets a reviewer check the direction of a PR without reading the whole d
 
 Get the facts once with `gh pr view <pr> --json url,title,body,additions,deletions,headRefOid,files` and save the diff with `gh pr diff <pr> > tmp/pr.diff`; search and slice that file rather than loading it whole. In a local clone, `git fetch origin <head sha>` and `git show <sha>:<path>` read files at the head commit; elsewhere use `gh api`. Never check out, pull, or stash in a working copy you were not given.
 
-Read the description, the diff, and the open review threads that people (not bots) started; only GraphQL tells open threads from resolved ones (`gh api graphql` on `pullRequest.reviewThreads` with `isResolved` and `comments`). Then read the changed code at the head commit until you know the contracts between the parts. Skip what you wrote this session and still know.
+Read the description, every design document it links or adds (including open questions and out-of-scope lists), the diff, and the open review threads that people (not bots) started; only GraphQL tells open threads from resolved ones (`gh api graphql` on `pullRequest.reviewThreads` with `isResolved` and `comments`). Then read the changed code at the head commit, and the unchanged code the feature relies on, until you know the contracts between the parts. Judge everything you read as [product judgment](../../coding/product-judgment.md) describes. Skip what you wrote this session and still know.
 
 ## Story
 
@@ -35,6 +35,8 @@ Keep the shown lines under 20% of the PR's added plus removed lines, and much lo
 
 Take the decisions from the description's Decisions section. When it has none, use the choices the description or code comments state ("deliberately", "instead of"), mark them implicit, and tell the user to add them to the description.
 
+The author's reason is not the verdict: judge each decision, and each behavior inherited from existing code, by the best experience for the user. When one hurts users, add it to **Check these** with a real example and a better option.
+
 Rewrite each one in normal language for a reader who has not seen the code: what was chosen, what it means for the user in practice (one short example), what it costs, and what else was possible and why not. Keep the author's code names only in brackets after the plain words, never in place of them.
 
 ## Tests
@@ -45,7 +47,7 @@ Rewrite each one in normal language for a reader who has not seen the code: what
 
 ## Check These
 
-Also compare the description with the code, and settings with their comments. Put each mismatch, or each value that looks wrong, in a callout next to the code it concerns, and link them all from the header's **Check these** callout. Tell the user about them too.
+Also compare the description with the code, and settings with their comments, and walk the user's full real flow for behavior that blocks or surprises them. Show briefly the unchanged parts the feature relies on, saying which are reused, placeholders, or missing. Put each mismatch, or each value that looks wrong, in a callout next to the code it concerns, and link them all from the header's **Check these** callout. Tell the user about them too.
 
 ## Page
 
