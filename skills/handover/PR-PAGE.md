@@ -10,13 +10,16 @@ Read the description, the diff, and the open review threads that people (not bot
 
 ## Story
 
-One page, in this order; leave out what the PR does not have:
+The reader may know the product but not this PR. Explain what changes for the people who use the product before any code, in everyday words, and explain every code or domain term the first time it appears. One page, in this order; leave out what the PR does not have:
 
-1. **Header:** the PR title, the problem and the chosen solution in a few sentences, the shown-lines line, and **Check these** (see below).
-2. **Flow:** a small diagram (see the `artifact-diagramming` skill), only when the PR adds or changes links between system parts and the links are more than a straight line.
-3. **One section per system part,** in the order the data or control moves: producer before consumer, caller before callee. Name each section after the part, not after a file.
-4. **Tests.**
-5. **Verified** and **Remaining.** **Changes** is the page itself.
+1. **Header:** the PR title, the problem and the chosen solution in a few plain sentences, the shown-lines line, and **Check these** (see below).
+2. **Product behavior:** who uses this and what they want; what they do and see before and after the PR, including what they can expect when it goes wrong. For a PR without user-visible behavior, say who notices the change (an operator, another service, a developer) and how, or say plainly that nothing changes for users yet and what the PR prepares.
+3. **Real-world examples:** walk through one or more concrete flows step by step, with real names, numbers and timing ("a trader buys 0.01 BTC at $98,000; 40% fills, so ..."), from the user's action to the final result. Cover the main path and each ending that matters (cancel, failure, timeout). These are scenarios, not code.
+4. **Diagrams:** draw the flow, as the `artifact-diagramming` skill describes: the steps or states a request moves through, and the parts that talk to each other when there are more than two. A PR that only touches one part may need just a state or timeline diagram; draw at least one whenever the PR has a flow a reader would otherwise assemble from prose.
+5. **Decisions,** each in the plain-language form under Decisions below, placed in the section it shapes or here when it covers the whole PR.
+6. **One code section per system part,** in the order the data or control moves: producer before consumer, caller before callee. Name each section after the part, not after a file, and open it with one sentence on what the part does for the user.
+7. **Tests.**
+8. **Verified** and **Remaining.** **Changes** is the page itself.
 
 ## Code
 
@@ -30,7 +33,9 @@ Keep the shown lines under 20% of the PR's added plus removed lines, and much lo
 
 ## Decisions
 
-Take the decisions from the description's Decisions section. When it has none, use the choices the description or code comments state ("deliberately", "instead of"), mark them implicit, and tell the user to add them to the description. Put each one at the top of the section it shapes, or in the header when it covers the whole PR.
+Take the decisions from the description's Decisions section. When it has none, use the choices the description or code comments state ("deliberately", "instead of"), mark them implicit, and tell the user to add them to the description.
+
+Rewrite each one in normal language for a reader who has not seen the code: what was chosen, what it means for the user in practice (one short example), what it costs, and what else was possible and why not. Keep the author's code names only in brackets after the plain words, never in place of them.
 
 ## Tests
 
@@ -48,6 +53,10 @@ Copy [`template.html`](template.html) with `cp`, then edit only its `PR_` placeh
 
 ```html
 <p class="note">Prose.</p>
+<div class="example"><h3>Example: a trader's limit order fills</h3>
+  <ol class="steps"><li>Step in plain words, with numbers.</li></ol></div>
+<figure class="diagram"><svg viewBox="0 0 W H" role="img" aria-label="The claim">…</svg>
+  <figcaption>What the diagram shows.</figcaption></figure>
 <aside class="callout"><span class="label">Check</span>A finding.</aside>
 <details class="decision"><summary>Choice<span class="tag">Implicit</span></summary>
   <div><p class="note">Why.</p><p><span class="label">Trade-off</span>…</p><p class="note"><span class="label">Alternatives</span>…</p></div></details>
