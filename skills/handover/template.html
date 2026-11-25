@@ -44,6 +44,12 @@ figure.diff figcaption { font: 12px ui-monospace, monospace; padding: 8px 12px; 
 figure.diff pre { margin: 0; padding: 8px 0; font: 13px/1.6 ui-monospace, monospace; tab-size: 2; }
 pre span { display: block; padding: 0 12px; white-space: pre-wrap; word-break: break-word; }
 pre .a { background: var(--add-bg); } pre .d { background: var(--del-bg); }
+figure.diagram { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px; display: grid; gap: 10px; }
+figure.diagram svg { max-width: 100%; height: auto; color: var(--ink); }
+figure.diagram figcaption { font-size: 14px; color: var(--muted); }
+ol.steps { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+.example { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 16px; display: grid; gap: 8px; }
+.example h3 { font: 600 15px system-ui, sans-serif; color: var(--ink); }
 .tests ul { margin: 4px 0 0; padding-left: 20px; list-style: none; display: grid; gap: 4px; }
 .tests li[data-change]::before { display: inline-block; width: 20px; margin-left: -20px; }
 .tests li[data-change="added"]::before { content: "+"; color: var(--add); }

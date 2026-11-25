@@ -13,7 +13,7 @@ Re-explain what was already done; do not change code.
    - **Remaining:** unfinished work, known limitations, untested paths, deferred or unsupported edge cases, and unresolved proposals.
    - **Decisions:** each choice that shapes the work, in the format below.
 
-   For a pull request, lay these out as [`${CLAUDE_PLUGIN_ROOT}/skills/handover/PR-PAGE.md`](PR-PAGE.md) says. Otherwise explain the work from the final code using [`${CLAUDE_PLUGIN_ROOT}/skills/plan-work/STRUCTURE.md`](../plan-work/STRUCTURE.md) and add the four sections.
+   For a pull request, lay these out as [`${CLAUDE_PLUGIN_ROOT}/skills/handover/PR-PAGE.md`](PR-PAGE.md) says. Otherwise explain the work, starting with what changes for its users in everyday words, at least one step-by-step real-world example and a diagram of the flow, from the final code using [`${CLAUDE_PLUGIN_ROOT}/skills/plan-work/STRUCTURE.md`](../plan-work/STRUCTURE.md) and add the four sections.
 2. **Publish.** Always publish the handover as a Claude artifact and share its link. If publishing fails, save it to Git-ignored `tmp/handover-<topic>.md` and say it was not published. The page is private, so never add its link to a pull request.
 
 ## Decisions
