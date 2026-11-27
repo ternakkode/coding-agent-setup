@@ -1,7 +1,7 @@
 # Code Quality
 
 - Make inputs, business steps, and outputs visible in the main flow. Separate logical steps with blank lines; keep related statements together.
-- Keep each rule with one owner. A policy, vendor, or formula change should touch its owner and necessary callers, not unrelated code. Keep vendor I/O, decoding, and pagination apart from business rules, which take supplied data.
+- Keep each rule with one owner. A policy, vendor, or formula change should touch its owner and necessary callers, not unrelated code. Keep vendor I/O, decoding, and pagination apart from business rules, which take supplied data. A runtime guarantee, such as ordering, idempotency, or no callback after a stop, is a rule too: enforce it once, in the component that relies on it, and keep the producers to their own work, such as teardown.
 - Choose the smallest useful boundary: a function for a focused responsibility, a file for related functions, a folder for cohesive files. Client, DB, and repository folders are examples, not required layers.
 
 ## Contracts and Validation
